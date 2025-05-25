@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统任务管理器</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-tasks"></i> 系统任务管理器</h1>
+        </header>
+        
+        <div class="task-controls">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="搜索任务...">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="filter-controls">
+                <select id="task-filter">
+                    <option value="all">所有任务</option>
+                    <option value="pending">待处理</option>
+                    <option value="in-progress">进行中</option>
+                    <option value="completed">已完成</option>
+                </select>
+                <button id="sort-btn" title="排序任务"><i class="fas fa-sort"></i></button>
+            </div>
+            <button id="add-task-btn" class="btn-primary"><i class="fas fa-plus"></i> 添加任务</button>
+        </div>
+        
+        <div class="task-list-container">
+            <table id="task-table">
+                <thead>
+                    <tr>
+                        <th>任务名称</th>
+                        <th>优先级</th>
+                        <th>状态</th>
+                        <th>截止日期</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody id="task-list">
+                    <!-- 任务列表将通过JavaScript动态生成 -->
+                </tbody>
+            </table>
+            <div id="no-tasks-message" class="hidden">
+                <p>暂无任务，点击"添加任务"按钮创建新任务。</p>
+            </div>
+        </div>
+        
+        <!-- 添加/编辑任务的模态框 -->
+        <div id="task-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2 id="modal-title">添加新任务</h2>
+                <form id="task-form">
+                    <input type="hidden" id="task-id">
+                    <div class="form-group">
+                        <label for="task-name">任务名称</label>
+                        <input type="text" id="task-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-description">任务描述</label>
+                        <textarea id="task-description"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="task-priority">优先级</label>
+                            <select id="task-priority">
+                                <option value="low">低</option>
+                                <option value="medium">中</option>
+                                <option value="high">高</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="task-status">状态</label>
+                            <select id="task-status">
+                                <option value="pending">待处理</option>
+                                <option value="in-progress">进行中</option>
+                                <option value="completed">已完成</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="task-deadline">截止日期</label>
+                        <input type="date" id="task-deadline">
+                    </div>
+                    <div class="form-buttons">
+                        <button type="button" id="cancel-btn" class="btn-secondary">取消</button>
+                        <button type="submit" id="save-btn" class="btn-primary">保存</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- 任务详情模态框 -->
+        <div id="task-details-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close-details-btn">&times;</span>
+                <h2>任务详情</h2>
+                <div id="task-details-content">
+                    <!-- 任务详情将通过JavaScript动态生成 -->
+                </div>
+                <div class="form-buttons">
+                    <button type="button" id="back-btn" class="btn-secondary">返回</button>
+                    <button type="button" id="edit-from-details-btn" class="btn-primary">编辑</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 确认删除模态框 -->
+        <div id="confirm-modal" class="modal hidden">
+            <div class="modal-content confirm-content">
+                <h2>确认删除</h2>
+                <p>您确定要删除这个任务吗？此操作不可撤销。</p>
+                <div class="form-buttons">
+                    <button type="button" id="cancel-delete-btn" class="btn-secondary">取消</button>
+                    <button type="button" id="confirm-delete-btn" class="btn-danger">删除</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="overlay" class="hidden"></div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 系统任务管理器 | 当前时间: <span id="current-time"></span></p>
+    </footer>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
